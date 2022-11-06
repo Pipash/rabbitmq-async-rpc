@@ -20,7 +20,7 @@ public class RpcServerController {
         byte[] body = message.getBody();
         log.info("server "+new String(body));
         //This is the message to be returned by the server
-        Message build = MessageBuilder.withBody(("I am the server, I received the message from the client：" + new String(body)).getBytes()).build();
+        Message build = MessageBuilder.withBody(("I am the rpc server, I received the message from the client：" + new String(body)).getBytes()).build();
         final String correlationId = message.getMessageProperties().getCorrelationId();
         rabbitTemplate.convertAndSend(RabbitMqConfig.RPC_REPLY_EXCHANGE, RabbitMqConfig.RPC_REPLY_MESSAGE_QUEUE, build, m -> {
             m.getMessageProperties().setCorrelationId(correlationId);
